@@ -21,10 +21,10 @@ app.get("/api/notes", function(req,res){
     res.json(list);
 });
 app.post("/api/notes", function(req,res){
-    var note = req.body;
-    note.id = note.title + Math.floor(Math.random()*10000);
+    var newNote = req.body;
+    newNote.id = newNote.title + Math.floor(Math.random()*10000);
     let notesArray = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    notesArray.push(note);
+    notesArray.push(newNote);
     fs.writeFileSync("./db/db.json", JSON.stringify(notesArray), "utf8");
     res.json(notesArray);
 })

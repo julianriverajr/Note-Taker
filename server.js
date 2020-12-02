@@ -17,11 +17,12 @@ app.get("*", function(req,res){
 });
 
 app.get("/api/notes", function(req,res){
-    res.json(JSON.parse(fs.readFileSync("./db/db.json", "utf8")));
+    var list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    res.json(list);
 });
 app.post("/api/notes", function(req,res){
     var note = req.body;
-    note.id = (Math.floor(Math.random()*100) + (Math.floor(Math.random()*100)))
+    note.id = (Math.floor(Math.random()*100));
     let notesArray = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     notesArray.push(note);
     fs.writeFileSync("./db/db.json", JSON.stringify(notesArray), "utf8");

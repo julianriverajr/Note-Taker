@@ -17,21 +17,21 @@ app.get("*", function(req,res){
 });
 
 app.get("/api/notes", function(req,res){
-    var list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    const list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     res.json(list);
 });
 app.post("/api/notes", function(req,res){
     var note = req.body;
-    note.id = (Math.floor(Math.random()*10000));
+    note.id = note.title + Math.floor(Math.random()*10000);
     let notesArray = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     notesArray.push(note);
     fs.writeFileSync("./db/db.json", JSON.stringify(notesArray), "utf8");
     res.json(notesArray);
 })
 app.delete("/api/notes/:id", function(req,res){
-    const {id} = req.params;
+    const { id } = req.params;
     let notesArray = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    for (let i = 0; i<notesArray.length; i++){
+    for (let i = 0; i < notesArray.length; i++){
         if (notesArray[i].id === id){
             notesArray.splice(i,1);
             break;

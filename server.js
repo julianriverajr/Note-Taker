@@ -22,7 +22,7 @@ app.get("/api/notes", function(req,res){
 });
 app.post("/api/notes", function(req,res){
     var note = req.body;
-    note.id = (Math.floor(Math.random()*100));
+    note.id = (Math.floor(Math.random()*10000));
     let notesArray = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     notesArray.push(note);
     fs.writeFileSync("./db/db.json", JSON.stringify(notesArray), "utf8");
